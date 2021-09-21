@@ -1,5 +1,5 @@
 {
-  "module-css": false,
+  "module-css": true,
   "css-prefix" : "scss",
   "script-type": "ts"
 }

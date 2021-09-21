@@ -18,9 +18,12 @@ const makeFolder = (dir) => {
     fs.mkdirSync(dir);
   }
 };
+const getScriptFileName = () => {
+  return componentName + `.${option["script-type"]}x`;
+};
 
 const makeScriptFile = () => {
-  const tsxFileName = componentName + `.${option["script-type"]}x`;
+  const tsxFileName = getScriptFileName();
   const script = makeHookTemplate(componentName, option);
   makeFile(tsxFileName, script);
 };
