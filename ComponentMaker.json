@@ -1,8 +1,5 @@
 {
-  "module-css": {
-    "exist": true,
-    "prefix": "scss"
-  },
-
+  "module-css": false,
+  "css-prefix" : "scss",
   "script-type": "ts"
 }

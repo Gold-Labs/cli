@@ -1,21 +1,17 @@
+function makeHookTemplate(componentName, config) {
+  const cssTemplate = config["module-css"]
+    ? ImportModuleCss(componentName, config["css-prefix"])
+    : "";
+  const scriptTemplate = ImportScript(componentName, config["script-type"]);
 
-function hookTemplate(componentName, config) {
+  return `import * as React from 'react';
+    ${cssTemplate}
 
-    const cssTemplate = Importcss(componentName, config.cssPrefix)
-    const scriptTemplate = ImportScript(componentName, config.scriptPrefix)
-
-    return `import * as React from 'react';
-    ${Importcss(componentName, config.cssPrefix)};
-
-    ${ImportScript(componentName, config.scriptPrefix)}
-    `
+    ${scriptTemplate}
+    `;
 }
 
-
-
-
-
-
+const scssTemplate = `@import "/mixin"`;
 
 const tsHookTemplate = (componentName) => `
 interface  ${componentName}Props{
@@ -26,28 +22,28 @@ export default function ${componentName} (props:${componentName}Props) {
     return (
 
   );
-}`
+}`;
 
 const jsHookTemplate = (componentName) => `
-import styles from './${componentName}.module.scss';
-
 export default function ${componentName} (props) {
     return (
 
   );
-}`
+}`;
 
-export const scssTemplate = `@import "/mixin"`
-
-function Importcss(componentName, prefix) {
-
-    return `import styles from './${componentName}.${prefix}'`;
+function ImportModuleCss(componentName, prefix) {
+  return `import styles from './${componentName}.module.${prefix}'`;
 }
 
 function ImportScript(componentName, prefix) {
-    if (prefix === "ts") {
-        return tsHookTemplate(componentName)
-    } else if (prefix === "js") {
-        return jsHookTemplate(componentName)
-    }
+  if (prefix === "ts") {
+    return tsHookTemplate(componentName);
+  } else if (prefix === "js") {
+    return jsHookTemplate(componentName);
+  }
 }
+
+module.exports = {
+  makeHookTemplate,
+  scssTemplate,
+};
